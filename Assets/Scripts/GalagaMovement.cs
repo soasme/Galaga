@@ -8,7 +8,6 @@ public class GalagaMovement : MonoBehaviour {
 	void Update () {
 		var position = gameObject.transform.position;
 		var x = position.x + Input.GetAxis ("Horizontal") * speed;
-		var y = position.y + Input.GetAxis ("Vertical") * speed;
-		gameObject.transform.position = new Vector2 (x, y);
+		gameObject.transform.position = new Vector2 (x, position.y);
 	}
 }
