@@ -23,10 +23,12 @@ public class EnemyArmySpawner : MonoBehaviour {
 	void Spawn() {
 		Vector2 center = gameObject.transform.position;
 		for (int i = 0; i < enemyRows; i++) {
-			for (int j = 0; j < enemyColumns; j++) {				
-				Vector2 pos = new Vector2 (j - enemyColumns / 2 + 0.5f, i);
-				enemies [i] = (GameObject)Instantiate (enemyPref, pos, Quaternion.identity);
-				enemies [i].transform.SetParent (this.transform);
+			for (int j = 0; j < enemyColumns; j++) {
+				if (!enemies [i * enemyColumns + j]) {
+					Vector2 pos = new Vector2 (j - enemyColumns / 2 + 0.5f, i);
+					enemies [i * enemyColumns + j] = (GameObject)Instantiate (enemyPref, pos, Quaternion.identity);
+					enemies [i * enemyColumns + j].transform.SetParent (this.transform);
+				}
 			}
 		}
 	}
@@ -42,6 +44,8 @@ public class EnemyArmySpawner : MonoBehaviour {
 			direction = -1 * direction;
 		}
 	}
+
+
 
 	void Update () {
 		if (NeedSpawn ()) {
