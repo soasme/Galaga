@@ -17,7 +17,13 @@ public class EnemyArmySpawner : MonoBehaviour {
 	}
 
 	bool NeedSpawn() {
-		return enemies.Length == 0;
+		int total = 0;
+		foreach (GameObject enemy in enemies) {
+			if (enemy != null) {
+				total += 1;
+			}
+		}
+		return total == 0;
 	}
 
 	void Spawn() {
