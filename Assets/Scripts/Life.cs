@@ -6,6 +6,7 @@ public class Life : MonoBehaviour {
 	public int left = 3;
 	public bool spawning = false;
 	public GameObject galagaPref;
+	public GameObject gameoverPref;
 
 	IEnumerator SpawnGalaga(){
 		spawning = true;
@@ -26,9 +27,8 @@ public class Life : MonoBehaviour {
 		TextMesh mesh = GetComponent<TextMesh> ();
 		mesh.text = "" + left;
 
-		if (left == 0 && !galaga) {
-			Debug.Log ("Game Over");
-			Debug.Log ("Enter Space to restart");
+		if (left == 0 && !galaga && !spawning) {
+			Instantiate (gameoverPref);
 		}
 	}
 }
