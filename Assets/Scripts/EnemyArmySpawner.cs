@@ -9,6 +9,17 @@ public class EnemyArmySpawner : MonoBehaviour {
 	public float speed = 1;
 	public GameObject enemyPref;
 	public GameObject[] enemies;
+	private GameObject attackForce;
+
+	int GetEnemyCount() {
+		int total = 0;
+		foreach (GameObject enemy in enemies) {
+			if (enemy != null) {
+				total += 1;
+			}
+		}
+		return total;
+	}
 
 	void Start () {
 		enemies = new GameObject[enemyRows * enemyColumns];
@@ -17,13 +28,7 @@ public class EnemyArmySpawner : MonoBehaviour {
 	}
 
 	bool NeedSpawn() {
-		int total = 0;
-		foreach (GameObject enemy in enemies) {
-			if (enemy != null) {
-				total += 1;
-			}
-		}
-		return total == 0;
+		return GetEnemyCount() == 0;
 	}
 
 	void Spawn() {
@@ -51,13 +56,47 @@ public class EnemyArmySpawner : MonoBehaviour {
 		}
 	}
 
+	bool isAttacking(){
+		return (bool)attackForce;
+	}
 
+	IEnumerator ChooseAttackForce(){
+		yield return new WaitForSeconds (1);
+
+		if (!attackForce && GameObject.FindGameObjectWithTag("Galaga")) {
+			var enemyCount = GetEnemyCount ();
+			if (enemyCount == 0) {
+				yield return new WaitForSeconds (1);
+			}
+			int attackerIndex = Random.Range (0, enemyCount);
+			foreach (GameObject enemy in enemies) {
+				if (enemy) {
+					enemyCount -= 1;
+				}
+				if (enemyCount == attackerIndex) {
+					attackForce = enemy;
+				}
+			}
+		}
+	}
+
+	void Attack() {
+		attackForce.transform.parent = null;
+		Enemy enemy = (Enemy)attackForce.GetComponent (typeof(Enemy));
+		enemy.MoveToPlayer ();
+	}
 
 	void Update () {
 		if (NeedSpawn ()) {
 			Spawn ();
 		} else {
 			Move ();
+		}
+
+		if (isAttacking ()) {
+			Attack ();
+		} else {
+			StartCoroutine (ChooseAttackForce());
 		}
 	}
 }
