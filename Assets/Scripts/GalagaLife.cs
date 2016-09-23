@@ -6,7 +6,7 @@ public class GalagaLife : MonoBehaviour {
 	public GameObject explosionPref;
 
 	void OnTriggerEnter2D(Collider2D collider) {
-		if (collider.tag == "Bullet" || collider.tag == "Enemy") {
+		if (collider.tag == "EnemyBullet" || collider.tag == "Enemy") {
 			PlayExplosion ();
 			Destroy (gameObject);
 		}

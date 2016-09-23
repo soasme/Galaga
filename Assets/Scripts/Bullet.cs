@@ -14,7 +14,9 @@ public class Bullet : MonoBehaviour {
 	}
 
 	void OnTriggerEnter2D(Collider2D collider) {
-		if (collider.tag == "Galaga" || collider.tag == "Enemy") {
+		if (this.tag == "GalagaBullet" && collider.tag == "Enemy" ||
+			this.tag == "EnemyBullet" && collider.tag == "Galaga"
+		) {
 			Destroy (gameObject);
 		}
 	}

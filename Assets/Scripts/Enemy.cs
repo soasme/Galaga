@@ -17,7 +17,7 @@ public class Enemy : MonoBehaviour {
 	}
 
 	void OnTriggerEnter2D(Collider2D collider) {
-		if (collider.tag == "Bullet" || collider.tag == "Galaga") {
+		if (collider.tag == "GalagaBullet" || collider.tag == "Galaga") {
 			PlayExplosion ();
 			Destroy (gameObject);
 		}

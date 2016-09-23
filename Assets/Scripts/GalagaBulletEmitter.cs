@@ -14,6 +14,7 @@ public class GalagaBulletEmitter : MonoBehaviour {
 
 	void Fire() {
 		GameObject bullet = (GameObject) Instantiate (bulletPref, bulletEmitter.transform.position, Quaternion.identity);
+		bullet.tag = "GalagaBullet";
 		Rigidbody2D rigidbody = bullet.GetComponent<Rigidbody2D> ();
 		rigidbody.AddForce (Vector2.up * bulletSpeedScale);
 		Destroy (bullet, 10.0f);
