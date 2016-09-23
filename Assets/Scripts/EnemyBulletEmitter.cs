@@ -22,17 +22,17 @@ public class EnemyBulletEmitter : MonoBehaviour {
 		Destroy (bullet, 2.0f);
 	}
 
-	public IEnumerator Fire() {
-		if (bullet) {
-			yield break;
-		}
+	public bool isCooling(){
+		return (bool)bullet;
+	}
 
+	public IEnumerator Fire() {
 		Shoot ();
 		yield return new WaitForSeconds (0.2f);
 		Shoot ();
 		yield return new WaitForSeconds (0.2f);
 		Shoot ();
-		yield break;
+		yield return new WaitForSeconds (0.2f);
 	}
 
 }

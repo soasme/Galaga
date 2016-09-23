@@ -82,10 +82,14 @@ public class EnemyArmySpawner : MonoBehaviour {
 
 	void Attack() {
 		attackForce.transform.parent = null;
+
 		Enemy enemy = (Enemy)attackForce.GetComponent (typeof(Enemy));
 		enemy.MoveToPlayer ();
+
 		EnemyBulletEmitter emitter = (EnemyBulletEmitter)attackForce.GetComponent (typeof(EnemyBulletEmitter));
-		StartCoroutine (emitter.Fire ());
+		if (!emitter.isCooling ()) {
+			StartCoroutine (emitter.Fire ());
+		}
 	}
 
 	void Update () {
