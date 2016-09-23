@@ -57,7 +57,6 @@ public class BulletEmitter : MonoBehaviour {
 	public void Reload(){
 		// Load bullet at emitter position
 		loadedBullet = (GameObject) Instantiate (bulletPref, bulletEmitter.transform.position, Quaternion.identity);
-
 		loadedBullet.tag = bulletTag;
 		loadedBullet.transform.parent = gameObject.transform;
 	}
